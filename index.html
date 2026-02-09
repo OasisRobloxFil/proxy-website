@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Proxy Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 50px;
+            font-size: 1.2em;
+        }
+        
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .country-btn {
+            background: white;
+            border: none;
+            padding: 30px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .country-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+        
+        .country-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .country-btn.inactive {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .country-flag {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .country-name {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .country-status {
+            font-size: 0.8em;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        
+        /* Modal/Popup styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            height: 90%;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .close-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .url-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .url-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .go-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .browser-frame {
+            flex: 1;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Global Proxy Network</h1>
+        <p class="subtitle">Select a server location to browse anonymously</p>
+        
+        <div class="countries-grid">
+            <button class="country-btn active" onclick="openProxy('usa')">
+                <div class="country-flag">🇺🇸</div>
+                <div class="country-name">United States</div>
+                <div class="country-status">✅ Online</div>
+            </button>
+            
+            <button class="country-btn inactive">
+                <div class="country-flag">🇬🇧</div>
+                <div class="country-name">United Kingdom</div>
+                <div class="country-status">⏸️ Offline</div>
+            </button>
+            
+            <button class="country-btn inactive">
+                <div class="country-flag">🇩🇪</div>
+                <div class="country-name">Germany</div>
+                <div class="country-status">⏸️ Offline</div>
+            </button>
+            
+            <button class="country-btn inactive">
+                <div class="country-flag">🇯🇵</div>
+                <div class="country-name">Japan</div>
+                <div class="country-status">⏸️ Offline</div>
+            </button>
+            
+            <button class="country-btn inactive">
+                <div class="country-flag">🇫🇷</div>
+                <div class="country-name">France</div>
+                <div class="country-status">⏸️ Offline</div>
+            </button>
+            
+            <button class="country-btn inactive">
+                <div class="country-flag">🇨🇦</div>
+                <div class="country-name">Canada</div>
+                <div class="country-status">⏸️ Offline</div>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Browser Modal -->
+    <div class="modal" id="browserModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🇺🇸 Browsing via USA Server</h2>
+                <button class="close-btn" onclick="closeProxy()">Close</button>
+            </div>
+            
+            <div class="url-bar">
+                <input type="text" class="url-input" id="urlInput" placeholder="Enter website URL (e.g., https://example.com)">
+                <button class="go-btn" onclick="loadUrl()">Go</button>
+            </div>
+            
+            <iframe class="browser-frame" id="browserFrame" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        const PROXY_URL = 'https://fatigable-entirely-raven.ngrok-free.dev';
+        
+        function openProxy(country) {
+            document.getElementById('browserModal').classList.add('show');
+        }
+        
+        function closeProxy() {
+            document.getElementById('browserModal').classList.remove('show');
+            document.getElementById('browserFrame').src = '';
+        }
+        
+        function loadUrl() {
+            const url = document.getElementById('urlInput').value;
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+            
+            // Add https:// if not present
+            const fullUrl = url.startsWith('http') ? url : 'https://' + url;
+            
+            // Load through proxy
+            const proxyUrl = `${PROXY_URL}/proxy?url=${encodeURIComponent(fullUrl)}`;
+            document.getElementById('browserFrame').src = proxyUrl;
+        }
+        
+        // Allow pressing Enter in URL bar
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadUrl();
+            }
+        });
+    </script>
+</body>
+</html>
