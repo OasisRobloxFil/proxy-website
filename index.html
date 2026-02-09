@@ -459,7 +459,7 @@
     </div>
     
     <script>
-        const PROXY_URL = 'https://fatigable-entirely-raven.ngrok-free.dev';
+       const PROXY_URL = 'https://fatigable-entirely-raven.ngrok-free.dev';
         
         const countryFacts = {
             usa: {
@@ -686,7 +686,9 @@
             
             const fullUrl = url.startsWith('http') ? url : 'https://' + url;
             const proxyUrl = `${PROXY_URL}/proxy?url=${encodeURIComponent(fullUrl)}`;
-            document.getElementById('browserFrame').src = proxyUrl;
+            
+            // Open in new tab to handle ngrok warning page
+            window.open(proxyUrl, '_blank');
         }
         
         document.getElementById('urlInput').addEventListener('keypress', function(e) {
@@ -694,6 +696,3 @@
                 loadUrl();
             }
         });
-    </script>
-</body>
-</html>
