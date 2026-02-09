@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Proxy Network</title>
+    <title>Geography In Bitesize - Learn About Countries</title>
     <style>
         * {
             margin: 0;
@@ -12,122 +12,228 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Georgia', serif;
+            background: #f5f5f5;
             min-height: 100vh;
-            padding: 20px;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1 {
-            text-align: center;
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .subtitle {
+            padding: 40px 20px;
             text-align: center;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 50px;
-            font-size: 1.2em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .countries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .country-btn {
-            background: white;
-            border: none;
-            padding: 30px 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .country-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
-        
-        .country-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .country-btn.inactive {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        
-        .country-flag {
+        .header h1 {
             font-size: 3em;
             margin-bottom: 10px;
+            font-weight: normal;
         }
         
-        .country-name {
-            font-weight: bold;
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .intro h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 2em;
+        }
+        
+        .intro p {
+            color: #555;
+            line-height: 1.8;
             font-size: 1.1em;
         }
         
-        .country-status {
-            font-size: 0.8em;
-            margin-top: 5px;
-            opacity: 0.7;
+        /* Countries Grid */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
         
-        /* Modal/Popup styles */
-        .modal {
+        .country-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+        
+        .country-flag {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .country-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .country-capital {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .country-region {
+            font-size: 0.85em;
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        /* Fact File Modal */
+        .fact-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
             z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
         
-        .modal.show {
+        .fact-modal.show {
+            display: flex;
+        }
+        
+        .fact-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .fact-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        
+        .fact-flag {
+            font-size: 5em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .fact-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .fact-section {
+            margin-bottom: 20px;
+        }
+        
+        .fact-section h3 {
+            color: #3498db;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        
+        .fact-section p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+        
+        /* Browser Modal (for Switzerland) */
+        .browser-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+        }
+        
+        .browser-modal.show {
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .modal-content {
+        .browser-content {
             background: white;
-            width: 90%;
-            height: 90%;
-            border-radius: 20px;
+            width: 95%;
+            height: 95%;
+            border-radius: 15px;
             padding: 20px;
             display: flex;
             flex-direction: column;
         }
         
-        .modal-header {
+        .browser-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 2px solid #eee;
         }
         
-        .close-btn {
-            background: #ff4757;
+        .browser-close {
+            background: #e74c3c;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 25px;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
@@ -148,7 +254,7 @@
         }
         
         .go-btn {
-            background: #667eea;
+            background: #3498db;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -163,62 +269,188 @@
             border-radius: 8px;
             background: white;
         }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
+    <div class="header">
+        <h1>📚 Geography In Bitesize</h1>
+        <p>Explore the world, one country at a time</p>
+    </div>
+    
     <div class="container">
-        <h1>🌍 Global Proxy Network</h1>
-        <p class="subtitle">Select a server location to browse anonymously</p>
+        <div class="intro">
+            <h2>Welcome to Your World Atlas</h2>
+            <p>Click on any country below to discover fascinating facts about its culture, geography, and history. 
+            Each country card provides quick insights into what makes each nation unique.</p>
+        </div>
         
         <div class="countries-grid">
-            <button class="country-btn active" onclick="openProxy('usa')">
-                <div class="country-flag">🇺🇸</div>
+            <!-- USA -->
+            <div class="country-card" onclick="showFactFile('usa')">
+                <span class="country-flag">🇺🇸</span>
                 <div class="country-name">United States</div>
-                <div class="country-status">✅ Online</div>
-            </button>
+                <div class="country-capital">Capital: Washington D.C.</div>
+                <div class="country-region">North America</div>
+            </div>
             
-            <button class="country-btn inactive">
-                <div class="country-flag">🇬🇧</div>
+            <!-- Switzerland (SECRET PROXY) -->
+            <div class="country-card" onclick="openBrowser()">
+                <span class="country-flag">🇨🇭</span>
+                <div class="country-name">Switzerland</div>
+                <div class="country-capital">Capital: Bern</div>
+                <div class="country-region">Central Europe</div>
+            </div>
+            
+            <!-- United Kingdom -->
+            <div class="country-card" onclick="showFactFile('uk')">
+                <span class="country-flag">🇬🇧</span>
                 <div class="country-name">United Kingdom</div>
-                <div class="country-status">⏸️ Offline</div>
-            </button>
+                <div class="country-capital">Capital: London</div>
+                <div class="country-region">Western Europe</div>
+            </div>
             
-            <button class="country-btn inactive">
-                <div class="country-flag">🇩🇪</div>
+            <!-- Germany -->
+            <div class="country-card" onclick="showFactFile('germany')">
+                <span class="country-flag">🇩🇪</span>
                 <div class="country-name">Germany</div>
-                <div class="country-status">⏸️ Offline</div>
-            </button>
+                <div class="country-capital">Capital: Berlin</div>
+                <div class="country-region">Central Europe</div>
+            </div>
             
-            <button class="country-btn inactive">
-                <div class="country-flag">🇯🇵</div>
+            <!-- Japan -->
+            <div class="country-card" onclick="showFactFile('japan')">
+                <span class="country-flag">🇯🇵</span>
                 <div class="country-name">Japan</div>
-                <div class="country-status">⏸️ Offline</div>
-            </button>
+                <div class="country-capital">Capital: Tokyo</div>
+                <div class="country-region">East Asia</div>
+            </div>
             
-            <button class="country-btn inactive">
-                <div class="country-flag">🇫🇷</div>
+            <!-- France -->
+            <div class="country-card" onclick="showFactFile('france')">
+                <span class="country-flag">🇫🇷</span>
                 <div class="country-name">France</div>
-                <div class="country-status">⏸️ Offline</div>
-            </button>
+                <div class="country-capital">Capital: Paris</div>
+                <div class="country-region">Western Europe</div>
+            </div>
             
-            <button class="country-btn inactive">
-                <div class="country-flag">🇨🇦</div>
+            <!-- Canada -->
+            <div class="country-card" onclick="showFactFile('canada')">
+                <span class="country-flag">🇨🇦</span>
                 <div class="country-name">Canada</div>
-                <div class="country-status">⏸️ Offline</div>
-            </button>
+                <div class="country-capital">Capital: Ottawa</div>
+                <div class="country-region">North America</div>
+            </div>
+            
+            <!-- Australia -->
+            <div class="country-card" onclick="showFactFile('australia')">
+                <span class="country-flag">🇦🇺</span>
+                <div class="country-name">Australia</div>
+                <div class="country-capital">Capital: Canberra</div>
+                <div class="country-region">Oceania</div>
+            </div>
+            
+            <!-- Brazil -->
+            <div class="country-card" onclick="showFactFile('brazil')">
+                <span class="country-flag">🇧🇷</span>
+                <div class="country-name">Brazil</div>
+                <div class="country-capital">Capital: Brasília</div>
+                <div class="country-region">South America</div>
+            </div>
+            
+            <!-- Italy -->
+            <div class="country-card" onclick="showFactFile('italy')">
+                <span class="country-flag">🇮🇹</span>
+                <div class="country-name">Italy</div>
+                <div class="country-capital">Capital: Rome</div>
+                <div class="country-region">Southern Europe</div>
+            </div>
+            
+            <!-- Spain -->
+            <div class="country-card" onclick="showFactFile('spain')">
+                <span class="country-flag">🇪🇸</span>
+                <div class="country-name">Spain</div>
+                <div class="country-capital">Capital: Madrid</div>
+                <div class="country-region">Southern Europe</div>
+            </div>
+            
+            <!-- South Korea -->
+            <div class="country-card" onclick="showFactFile('korea')">
+                <span class="country-flag">🇰🇷</span>
+                <div class="country-name">South Korea</div>
+                <div class="country-capital">Capital: Seoul</div>
+                <div class="country-region">East Asia</div>
+            </div>
+            
+            <!-- Mexico -->
+            <div class="country-card" onclick="showFactFile('mexico')">
+                <span class="country-flag">🇲🇽</span>
+                <div class="country-name">Mexico</div>
+                <div class="country-capital">Capital: Mexico City</div>
+                <div class="country-region">North America</div>
+            </div>
+            
+            <!-- India -->
+            <div class="country-card" onclick="showFactFile('india')">
+                <span class="country-flag">🇮🇳</span>
+                <div class="country-name">India</div>
+                <div class="country-capital">Capital: New Delhi</div>
+                <div class="country-region">South Asia</div>
+            </div>
+            
+            <!-- Netherlands -->
+            <div class="country-card" onclick="showFactFile('netherlands')">
+                <span class="country-flag">🇳🇱</span>
+                <div class="country-name">Netherlands</div>
+                <div class="country-capital">Capital: Amsterdam</div>
+                <div class="country-region">Western Europe</div>
+            </div>
+            
+            <!-- Sweden -->
+            <div class="country-card" onclick="showFactFile('sweden')">
+                <span class="country-flag">🇸🇪</span>
+                <div class="country-name">Sweden</div>
+                <div class="country-capital">Capital: Stockholm</div>
+                <div class="country-region">Northern Europe</div>
+            </div>
         </div>
     </div>
     
-    <!-- Browser Modal -->
-    <div class="modal" id="browserModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>🇺🇸 Browsing via USA Server</h2>
-                <button class="close-btn" onclick="closeProxy()">Close</button>
+    <div class="footer">
+        <p>&copy; 2025 Geography In Bitesize - Educational Resource</p>
+        <p>Discover the world through knowledge</p>
+    </div>
+    
+    <!-- Fact File Modal -->
+    <div class="fact-modal" id="factModal">
+        <div class="fact-content">
+            <button class="fact-close" onclick="closeFactFile()">×</button>
+            <div id="factFileContent"></div>
+        </div>
+    </div>
+    
+    <!-- Browser Modal (for Switzerland only) -->
+    <div class="browser-modal" id="browserModal">
+        <div class="browser-content">
+            <div class="browser-header">
+                <h2>🇨🇭 Swiss Educational Resources Browser</h2>
+                <button class="browser-close" onclick="closeBrowser()">Close</button>
             </div>
             
             <div class="url-bar">
-                <input type="text" class="url-input" id="urlInput" placeholder="Enter website URL (e.g., https://example.com)">
+                <input type="text" class="url-input" id="urlInput" placeholder="Enter educational website URL (e.g., https://example.com)">
                 <button class="go-btn" onclick="loadUrl()">Go</button>
             </div>
             
@@ -229,11 +461,218 @@
     <script>
         const PROXY_URL = 'https://fatigable-entirely-raven.ngrok-free.dev';
         
-        function openProxy(country) {
+        const countryFacts = {
+            usa: {
+                flag: '🇺🇸',
+                name: 'United States of America',
+                facts: {
+                    'Population': 'Approximately 331 million people',
+                    'Area': '9.8 million km² (3rd largest country)',
+                    'Language': 'English (de facto)',
+                    'Currency': 'US Dollar ($)',
+                    'Interesting Fact': 'The USA has no official language at the federal level, though English is the most widely spoken.',
+                    'Famous For': 'Hollywood, Silicon Valley, the Grand Canyon, and being a global superpower in technology and entertainment.'
+                }
+            },
+            uk: {
+                flag: '🇬🇧',
+                name: 'United Kingdom',
+                facts: {
+                    'Population': 'Approximately 67 million people',
+                    'Area': '242,495 km²',
+                    'Language': 'English',
+                    'Currency': 'Pound Sterling (£)',
+                    'Interesting Fact': 'The UK is made up of four countries: England, Scotland, Wales, and Northern Ireland.',
+                    'Famous For': 'Big Ben, the Royal Family, Shakespeare, and afternoon tea culture.'
+                }
+            },
+            germany: {
+                flag: '🇩🇪',
+                name: 'Germany',
+                facts: {
+                    'Population': 'Approximately 83 million people',
+                    'Area': '357,022 km²',
+                    'Language': 'German',
+                    'Currency': 'Euro (€)',
+                    'Interesting Fact': 'Germany has over 1,500 different types of beer and 1,000 varieties of sausages.',
+                    'Famous For': 'Oktoberfest, the Autobahn, Brandenburg Gate, and engineering excellence.'
+                }
+            },
+            japan: {
+                flag: '🇯🇵',
+                name: 'Japan',
+                facts: {
+                    'Population': 'Approximately 126 million people',
+                    'Area': '377,975 km²',
+                    'Language': 'Japanese',
+                    'Currency': 'Yen (¥)',
+                    'Interesting Fact': 'Japan has more than 6,800 islands, though only about 430 are inhabited.',
+                    'Famous For': 'Sushi, Mount Fuji, anime and manga, cherry blossoms, and advanced technology.'
+                }
+            },
+            france: {
+                flag: '🇫🇷',
+                name: 'France',
+                facts: {
+                    'Population': 'Approximately 67 million people',
+                    'Area': '643,801 km² (largest in EU)',
+                    'Language': 'French',
+                    'Currency': 'Euro (€)',
+                    'Interesting Fact': 'France is the most visited country in the world, attracting over 89 million tourists annually.',
+                    'Famous For': 'The Eiffel Tower, fine cuisine, wine, fashion, and art museums like the Louvre.'
+                }
+            },
+            canada: {
+                flag: '🇨🇦',
+                name: 'Canada',
+                facts: {
+                    'Population': 'Approximately 38 million people',
+                    'Area': '9.98 million km² (2nd largest country)',
+                    'Language': 'English and French (official)',
+                    'Currency': 'Canadian Dollar (C$)',
+                    'Interesting Fact': 'Canada has more lakes than the rest of the world combined - over 3 million!',
+                    'Famous For': 'Maple syrup, hockey, Niagara Falls, politeness, and stunning natural landscapes.'
+                }
+            },
+            australia: {
+                flag: '🇦🇺',
+                name: 'Australia',
+                facts: {
+                    'Population': 'Approximately 26 million people',
+                    'Area': '7.69 million km² (6th largest country)',
+                    'Language': 'English',
+                    'Currency': 'Australian Dollar (A$)',
+                    'Interesting Fact': 'Australia is home to 21 of the world\'s 25 most venomous snakes.',
+                    'Famous For': 'The Great Barrier Reef, Sydney Opera House, kangaroos, and unique wildlife.'
+                }
+            },
+            brazil: {
+                flag: '🇧🇷',
+                name: 'Brazil',
+                facts: {
+                    'Population': 'Approximately 213 million people',
+                    'Area': '8.5 million km² (5th largest country)',
+                    'Language': 'Portuguese',
+                    'Currency': 'Brazilian Real (R$)',
+                    'Interesting Fact': 'The Amazon rainforest in Brazil produces 20% of the world\'s oxygen.',
+                    'Famous For': 'Carnival, football (soccer), Amazon rainforest, Christ the Redeemer statue.'
+                }
+            },
+            italy: {
+                flag: '🇮🇹',
+                name: 'Italy',
+                facts: {
+                    'Population': 'Approximately 60 million people',
+                    'Area': '301,340 km²',
+                    'Language': 'Italian',
+                    'Currency': 'Euro (€)',
+                    'Interesting Fact': 'Italy has more UNESCO World Heritage Sites than any other country - 58 in total!',
+                    'Famous For': 'Pizza, pasta, the Colosseum, Renaissance art, and Italian fashion.'
+                }
+            },
+            spain: {
+                flag: '🇪🇸',
+                name: 'Spain',
+                facts: {
+                    'Population': 'Approximately 47 million people',
+                    'Area': '505,990 km²',
+                    'Language': 'Spanish (Castilian)',
+                    'Currency': 'Euro (€)',
+                    'Interesting Fact': 'Spain has the second highest number of UNESCO World Heritage Sites after Italy - 49 sites.',
+                    'Famous For': 'Flamenco dancing, bullfighting, La Sagrada Familia, paella, and beautiful beaches.'
+                }
+            },
+            korea: {
+                flag: '🇰🇷',
+                name: 'South Korea',
+                facts: {
+                    'Population': 'Approximately 52 million people',
+                    'Area': '100,210 km²',
+                    'Language': 'Korean',
+                    'Currency': 'South Korean Won (₩)',
+                    'Interesting Fact': 'South Korea has the fastest average internet connection speed in the world.',
+                    'Famous For': 'K-pop, Korean BBQ, Samsung, advanced technology, and Korean dramas.'
+                }
+            },
+            mexico: {
+                flag: '🇲🇽',
+                name: 'Mexico',
+                facts: {
+                    'Population': 'Approximately 129 million people',
+                    'Area': '1.96 million km²',
+                    'Language': 'Spanish',
+                    'Currency': 'Mexican Peso (MXN)',
+                    'Interesting Fact': 'Mexico City is built on top of an ancient Aztec city called Tenochtitlan.',
+                    'Famous For': 'Tacos, Day of the Dead, ancient Mayan ruins, mariachi music, and vibrant culture.'
+                }
+            },
+            india: {
+                flag: '🇮🇳',
+                name: 'India',
+                facts: {
+                    'Population': 'Approximately 1.4 billion people (2nd most populous)',
+                    'Area': '3.29 million km² (7th largest country)',
+                    'Language': 'Hindi and English (official), 22 recognized languages',
+                    'Currency': 'Indian Rupee (₹)',
+                    'Interesting Fact': 'India has the largest number of post offices in the world - over 150,000!',
+                    'Famous For': 'The Taj Mahal, Bollywood, diverse cuisine, yoga, and ancient civilization.'
+                }
+            },
+            netherlands: {
+                flag: '🇳🇱',
+                name: 'Netherlands',
+                facts: {
+                    'Population': 'Approximately 17 million people',
+                    'Area': '41,543 km²',
+                    'Language': 'Dutch',
+                    'Currency': 'Euro (€)',
+                    'Interesting Fact': 'About 26% of the Netherlands is below sea level, protected by an extensive system of dikes.',
+                    'Famous For': 'Windmills, tulips, cheese, cycling culture, and Amsterdam\'s canals.'
+                }
+            },
+            sweden: {
+                flag: '🇸🇪',
+                name: 'Sweden',
+                facts: {
+                    'Population': 'Approximately 10 million people',
+                    'Area': '450,295 km²',
+                    'Language': 'Swedish',
+                    'Currency': 'Swedish Krona (SEK)',
+                    'Interesting Fact': 'Sweden has not been at war for over 200 years - since 1814!',
+                    'Famous For': 'IKEA, ABBA, the Nobel Prize, meatballs, and stunning northern lights.'
+                }
+            }
+        };
+        
+        function showFactFile(country) {
+            const data = countryFacts[country];
+            let factsHTML = `
+                <div class="fact-flag">${data.flag}</div>
+                <h2 class="fact-title">${data.name}</h2>
+            `;
+            
+            for (let [key, value] of Object.entries(data.facts)) {
+                factsHTML += `
+                    <div class="fact-section">
+                        <h3>${key}</h3>
+                        <p>${value}</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('factFileContent').innerHTML = factsHTML;
+            document.getElementById('factModal').classList.add('show');
+        }
+        
+        function closeFactFile() {
+            document.getElementById('factModal').classList.remove('show');
+        }
+        
+        function openBrowser() {
             document.getElementById('browserModal').classList.add('show');
         }
         
-        function closeProxy() {
+        function closeBrowser() {
             document.getElementById('browserModal').classList.remove('show');
             document.getElementById('browserFrame').src = '';
         }
@@ -245,15 +684,11 @@
                 return;
             }
             
-            // Add https:// if not present
             const fullUrl = url.startsWith('http') ? url : 'https://' + url;
-            
-            // Load through proxy
             const proxyUrl = `${PROXY_URL}/proxy?url=${encodeURIComponent(fullUrl)}`;
             document.getElementById('browserFrame').src = proxyUrl;
         }
         
-        // Allow pressing Enter in URL bar
         document.getElementById('urlInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 loadUrl();
